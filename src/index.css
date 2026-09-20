@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+/* ── Tailwind v4 theme tokens ───────────────────────────── */
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+
+  /* Justice red palette */
+  --color-justice-50:  #fff0f1;
+  --color-justice-100: #ffe0e2;
+  --color-justice-200: #ffc6ca;
+  --color-justice-300: #ff9ea5;
+  --color-justice-400: #ff6570;
+  --color-justice-500: #f83b47;
+  --color-justice-600: #e63946;
+  --color-justice-700: #c01f2c;
+  --color-justice-800: #a01d29;
+  --color-justice-900: #841e27;
+
+  /* Ocean accent */
+  --color-ocean-400: #5ba4cf;
+  --color-ocean-500: #457b9d;
+  --color-ocean-600: #2d6480;
+
+  /* Dark scale */
+  --color-dark-900: #05050a;
+  --color-dark-800: #0a0a0f;
+  --color-dark-700: #111118;
+  --color-dark-600: #1a1a25;
+  --color-dark-500: #22222f;
+  --color-dark-400: #2e2e3e;
+  --color-dark-300: #3d3d52;
+
+  /* Animations */
+  --animate-fade-up: fadeUp 0.6s ease forwards;
+  --animate-pulse2: pulse2 2s ease-in-out infinite;
+  --animate-float: float 3s ease-in-out infinite;
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse2 {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(230,57,70,0.4); }
+    50%       { box-shadow: 0 0 0 12px rgba(230,57,70,0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+}
+
+/* ── Reset / base ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-dark-900);
+  color: #f1f1f5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-dark-800); }
+::-webkit-scrollbar-thumb { background: var(--color-dark-400); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-justice-600); }
+
+/* ── Leaflet dark theme overrides ───────────────────────── */
+.leaflet-container {
+  background: var(--color-dark-700) !important;
+  font-family: var(--font-sans) !important;
+}
+.leaflet-tile {
+  filter: brightness(0.8) saturate(0.65) hue-rotate(200deg);
+}
+.leaflet-control-zoom a {
+  background: var(--color-dark-600) !important;
+  color: #f1f1f5 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+.leaflet-control-zoom a:hover {
+  background: var(--color-justice-600) !important;
+  color: #fff !important;
+}
+.leaflet-popup-content-wrapper {
+  background: var(--color-dark-600) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.6) !important;
+  color: #f1f1f5 !important;
+}
+.leaflet-popup-tip { background: var(--color-dark-600) !important; }
+.leaflet-popup-close-button { color: #f1f1f5 !important; font-size: 18px !important; }
+
+/* ── Design system utilities ────────────────────────────── */
+.glass-card {
+  background: var(--color-dark-600);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+.glass-card:hover {
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  background: var(--color-justice-600);
+  color: white;
+  box-shadow: 0 0 20px rgba(230,57,70,0.35);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  background: var(--color-justice-500);
+  box-shadow: 0 0 40px rgba(230,57,70,0.45);
+}
+.btn-primary:active { transform: scale(0.95); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.8);
+  background: transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.2);
+  color: white;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: white;
+}
+
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.input-field {
+  width: 100%;
+  background: var(--color-dark-500);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: white;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  outline: none;
+  font-family: var(--font-sans);
+}
+.input-field::placeholder { color: rgba(255,255,255,0.3); }
+.input-field:focus {
+  border-color: var(--color-justice-500);
+  box-shadow: 0 0 0 3px rgba(230,57,70,0.15);
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.375rem;
+}
+
+/* ── Gradient text ──────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, #e63946 0%, #ff6b6b 50%, #ff9a9a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Map page ────────────────────────────────────────────── */
+.map-container { height: calc(100vh - 64px); }
+
+/* ── Noise hero overlay ─────────────────────────────────── */
+.noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+/* ── Hide scrollbar (for pill row) ─────────────────────── */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
